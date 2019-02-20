@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Olá! Você está logado.
+                    CRUD Básico LARAVEL 5.7 - 2019.
                 </div>
             </div>
         </div>

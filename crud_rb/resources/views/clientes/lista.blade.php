@@ -4,8 +4,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">Clientes <a class="pull-right" href="/clientes/novo">Novo Cliente</a> </div>
-
+        <div class="card-header">Clientes <a class="btn btn-success float-right btn-sm" href="/clientes/novo">Novo Cliente</a> </div>
           <div class="card-body">
             @if(Session::has('mensagem_sucesso'))
               <div class="alert alert-success">{{ Session::get('mensagem_sucesso') }} </div>
