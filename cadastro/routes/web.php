@@ -5,12 +5,13 @@ Route::get('/', function () {
 });
 
 // Produtos
-Route::get('/produtos', 'ControllerProduto@index');
-Route::get('/produtos/novo', 'ControllerProduto@create');
-Route::post('/produtos', 'ControllerProduto@store');
-Route::get("/produtos/apagar/{id}", "ControllerProduto@destroy");
-Route::get("/produtos/editar/{id}", "ControllerProduto@edit");
-Route::post('/produtos/{id}', 'ControllerProduto@update');
+// Route::get('/produtosPrincipal', 'ControllerProduto@indexPincipal');
+Route::get('/produtos', 'ControllerProduto@indexView');
+// Route::get('/produtos/novo', 'ControllerProduto@create');    
+// Route::post('/produtos', 'ControllerProduto@storeView');
+// Route::get("/produtos/apagar/{id}", "ControllerProduto@destroy");
+// Route::get("/produtos/editar/{id}", "ControllerProduto@edit");
+// Route::post('/produtos/{id}', 'ControllerProduto@update');
 
 // Categorias
 Route::get('/categorias', 'ControllerCategoria@index');
@@ -19,3 +20,12 @@ Route::post('/categorias', 'ControllerCategoria@store');
 Route::get("/categorias/apagar/{id}", "ControllerCategoria@destroy");
 Route::get("/categorias/editar/{id}", "ControllerCategoria@edit");
 Route::post('/categorias/{id}', 'ControllerCategoria@update');
+
+
+// Produtos Ajax
+// Route::get('/produtos', 'ControllerProduto@index');
+// Route::get('/produtos/novo', 'ControllerProduto@create');
+// Route::post('/produtos', 'ControllerProduto@store');
+// Route::get("/produtos/apagar/{id}", "ControllerProduto@destroy");
+// Route::get("/produtos/editar/{id}", "ControllerProduto@edit");
+// Route::post('/produtos/{id}', 'ControllerProduto@update');

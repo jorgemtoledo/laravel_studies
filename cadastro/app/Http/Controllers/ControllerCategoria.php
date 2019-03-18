@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categoria;
+use function GuzzleHttp\json_encode;
 
 class ControllerCategoria extends Controller
 {
@@ -98,5 +99,13 @@ class ControllerCategoria extends Controller
         $cat->delete();
       }
       return redirect('/categorias');
+    }
+
+
+    // Json
+    public function indexJson()
+    {
+      $cats = Categoria::all();
+      return json_encode($cats);
     }
 }

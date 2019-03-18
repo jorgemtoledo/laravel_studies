@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Produto;
 use App\Categoria;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 
 class ControllerProduto extends Controller
 {
@@ -13,8 +15,37 @@ class ControllerProduto extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexView()
+    {
+      $prods = Produto::all();
+      return view('produtos.indexAjax', compact('prods'));
+
+    }
+
     public function index()
     {
+      $prods = Produto::all();
+      return $prods->toJson();
+    }
+
+    public function indexPincipal()
+    {
+      // echo request()->segment(2);
+      // dd(Request::segments());
+      // $url_segment = \Request::segment(1);
+      // echo $url_segment ;
+      // echo url()->current();
+      // echo url()->full();
+      // echo url()->previous();
+      // die();
+      // if($url_segment == "produtos"){
+      // $prods = Produto::all();
+      // return view('produtos.index', compact('prods'));
+      // } else {
+      //   $prods = Produto::all();
+      //   return view('produtos.indexAjax', compact('prods'));
+      // }
+
       $prods = Produto::all();
       return view('produtos.index', compact('prods'));
     }
@@ -38,6 +69,25 @@ class ControllerProduto extends Controller
      */
     public function store(Request $request)
     {
+      $prod = new Produto(); 
+      // $prod->nome = $request->input('nomeProduto');
+      // $prod->estoque = $request->input('estoque');
+      // $prod->preco = $request->input('preco');
+      // $prod->categoria_id = $request->input('categoria');
+      // $prod->save();
+      // return redirect('/produtos');
+
+      $prod->nome = $request->input('nome');
+      $prod->estoque = $request->input('estoque');
+      $prod->preco = $request->input('preco');
+      $prod->categoria_id = $request->input('categoria_id');
+      $prod->save();
+      return Response::json($prod);
+      // return json_decode($prod);
+    }
+
+    public function storeView(Request $request)
+    {
       $prod = new Produto();
       $prod->nome = $request->input('nomeProduto');
       $prod->estoque = $request->input('estoque');
@@ -55,7 +105,11 @@ class ControllerProduto extends Controller
      */
     public function show($id)
     {
-        //
+      $prod = Produto::find($id);
+      if(isset($prod)){
+        return json_encode($prod);
+      }
+      return response('Produto não encontrado!', 404);
     }
 
     /**
@@ -84,15 +138,26 @@ class ControllerProduto extends Controller
     public function update(Request $request, $id)
     {
       $prod = Produto::find($id);
+      // if(isset($prod)){
+      //   $prod = new Produto();
+      //   $prod->nome = $request->input('nomeProduto');
+      //   $prod->estoque = $request->input('estoque');
+      //   $prod->preco = $request->input('preco');
+      //   $prod->categoria_id = $request->input('categoria');
+      //   $prod->save();
+      // }
+      // return redirect('/produtos');
+
+      // Ajax
       if(isset($prod)){
-        $prod = new Produto();
-        $prod->nome = $request->input('nomeProduto');
+        $prod->nome = $request->input('nome');
         $prod->estoque = $request->input('estoque');
         $prod->preco = $request->input('preco');
-        $prod->categoria_id = $request->input('categoria');
+        $prod->categoria_id = $request->input('categoria_id');
         $prod->save();
+        return json_encode($prod);
       }
-      return redirect('/produtos');
+      return response('Produto não encontrado!', 404);
     }
 
     /**
@@ -103,10 +168,19 @@ class ControllerProduto extends Controller
      */
     public function destroy($id)
     {
+      // No ajax
+      // $prod = Produto::find($id);
+      // if(isset($prod)){
+      //   $prod->delete();
+      // }
+      // return redirect('/produtos');
+
+      // Ajax
       $prod = Produto::find($id);
       if(isset($prod)){
         $prod->delete();
+        return response('OK', 200);
       }
-      return redirect('/produtos');
+      return response('Produto não deletado!', 404);
     }
 }
