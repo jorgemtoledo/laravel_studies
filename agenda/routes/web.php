@@ -19,10 +19,10 @@
 //     return view('template.app');
 // });
 
+Route::get('/', function () {
+    return redirect('/pessoas/A');
+});
 Route::group(["prefix" => "pessoas"], function () {
-    Route::get('/', function () {
-        return redirect('/pessoas/A');
-    });
     Route::get("novo", "PessoasController@novoView");
     Route::post("/store", "PessoasController@store");
     Route::get("/{id}/editar", "PessoasController@editarView");
